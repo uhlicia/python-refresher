@@ -9,30 +9,31 @@ class BankAccount:
         self.account_number = account_number
 
     def withdraw(self, amount):
-        """Takes money out of a bank account and returns the new balance.
+        """Takes money out of a bank account.
         
-            If the amount attempted to be withdrawed exceeds the balance within 
-            the account, withdrawal doesn't go through."""
-        
-        if self.balance - amount < 0:
-            print("Not enough money in account")
-            return self.balance
-        else:
-            return self.balance - amount
+            If the amount attempting to be withdrawed exceeds the balance within 
+            the account or the amount is negative, withdrawal doesn't go through."""
+        if amount < 0 or self.balance - amount < 0:
+            #raise(ValueError, "Insufficient balance.") #if we raise errors, must catch it
+            return False
+        self.balance -= amount
+        return True
     
-    def deposit(self, money):
-        if money < 0:
-            print("Trying to deposit negative value")
-            return self.balance
-        else:
-            return self.balance + money
+    def deposit(self, amount):
+        """Adds money into a bank account.
+        
+            If the amount attempting to be deposited is negative, deposit 
+            doesn't go through."""
+        if amount < 0:
+            return False
+        self.balance += amount
+        return True
     
     def print_current_balance(self):
-        current_balance = "The current balance in " + self.name + "'s account is " + self.balance + " dollars."
-        print(current_balance)
-        return current_balance
+        """Prints the balance in the bank account."""
+        print(self.balance)
+        return self.balance
 
-    
     def __main__():
         BankAccount()
 
